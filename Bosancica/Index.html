@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="Style.css" type="text/css" rel="stylesheet">
+    <link href="http://fonts.googleapis.com/earlyaccess/droidarabicnaskh.css" rel="stylesheet">
+    <link rel="icon" href="./pics/appicon.png">
+    <title>Latinica <-> Bosančica</title>
+</head>
+<body>
+
+<header>
+    <h1>Prevoditelj Latinica-Bosančica</h1>
+    <h1>Пϸє□оΔнmєʌѣ Лɖmнɴнчɖ Босɖɴvнчɖ</h1>
+</header>
+
+
+
+<div id="container">
+
+    <h3 id="title1">Latinica</h3>
+    <textarea id="firstlangText" placeholder="Enter Text Here"></textarea>
+
+    <div id="buttons">
+        <img id="switch" alt="switch" src="pics/switch.png" onclick="switchLanguages()">
+        <span>Zamijeni pisma</span>
+        <img id="clear" alt="clear" src="pics/clear.png" onclick="clearAll()">
+        <span>Obriši sve</span>
+        <img id="clipboard" alt="clipboard" src="pics/clipboard.png" onclick="copyToClipboard()">
+        <span>Kopiraj prijevod u Clipboard</span>
+    </div>
+
+    <h3 id="title2">Bosančica</h3>
+    <p id="secondlangText"></p>
+
+    <div id="fontButtons">
+        <img id="fontup" alt="fontup" src="pics/fontup.png" onclick="fontUp()">
+        <span>Povećaj veličinu teksta</span>
+        <img id="fontdown" alt="fontdown" src="pics/fontdown.png" onclick="fontDown()">
+        <span>Smanji veličinu teksta</span>
+    </div>
+
+
+    <div id="about">
+        <img id="aboutIMG" alt="about" src="pics/about.png">
+        <span id="aboutTitle">O pismu</span>
+        <p> <a href="https://bs.wikipedia.org/wiki/Arebica">Bosančica</a> ili Bosanska ćirilica je autentično i posebno
+            pismo nastalo u srednjovjekovnoj Bosni i okolnim krajevima.[1] Do sada najuravnoteženiji prikaz bosančice je
+            dao paleograf Vladimir Mošin, koji razlikuje tri centra zračenja u nastanku bosančice, ili zapadne ćirilice,
+            što je najčešće moderno ime: humsko-dukljanski prostor, područje Dubrovnika i područje srednje Dalmacije
+            Najstariji spomenik pisan bosančicom jeste Humačka ploča (10. vijek) zatim Povelja Kulina bana od 29.08.1189. godine.
+            Bosančicom su pisani: nadgrobni i ktitorski epigrafi u Travuniji i srednjoj Bosni.
+        </p>
+
+        <table cellpadding="0" cellspacing="0">
+            <caption><i>Bosančica u UNICODE</i></caption>
+            <tr class="thclass">
+                <th>Latinica</th>
+                <th>A</th>
+                <th>B</th>
+                <th>C</th>
+                <th>Č</th>
+                <th>Ć</th>
+                <th>D</th>
+                <th>DŽ</th>
+                <th>Đ</th>
+                <th>E</th>
+                <th>F</th>
+                <th>G</th>
+                <th>H</th>
+                <th>I</th>
+                <th>J</th>
+                <th>K</th>
+            </tr>
+            <tr>
+                <td>Arebica</td>
+                <td>ɖ</td>
+                <td>б</td>
+                <td>ч</td>
+                <td>v</td>
+                <td>ƛ</td>
+                <td>Δ</td>
+                <td>ᴤ</td>
+                <td>ꙉ</td>
+                <td>є</td>
+                <td>ф</td>
+                <td>г</td>
+                <td>χ</td>
+                <td>н</td>
+                <td>ѣ</td>
+                <td>к</td>
+            </tr>
+
+            <tr class="thclass">
+                <th>Latinica</th>
+                <th>L</th>
+                <th>LJ</th>
+                <th>M</th>
+                <th>N</th>
+                <th>NJ</th>
+                <th>O</th>
+                <th>P</th>
+                <th>R</th>
+                <th>S</th>
+                <th>Š</th>
+                <th>T</th>
+                <th>U</th>
+                <th>V</th>
+                <th>Z</th>
+                <th>Ž</th>
+            </tr>
+
+            <tr>
+                <td>Arebica</td>
+                <td>ʌ</td>
+                <td>ʌь</td>
+                <td>ʍ</td>
+                <td>ɴ</td>
+                <td>ɴь</td>
+                <td>о</td>
+                <td>п</td>
+                <td>ϸ</td>
+                <td>с</td>
+                <td>ш</td>
+                <td>m</td>
+                <td>ɣ</td>
+                <td>□</td>
+                <td>ӡ</td>
+                <td>ж</td>
+            </tr>
+        </table>
+    </div>
+    &copy; Armin Rejzović, 2020.
+</div>
+
+</body>
+
+<script>
+    var targetLanguage = "Bosancica";
+    var title1 = document.getElementById("title1");
+    var title2 = document.getElementById("title2");
+
+    var language1 = document.getElementById("firstlangText");
+    var language2 = document.getElementById("secondlangText");
+
+    document.getElementById("firstlangText").onkeydown = function (ev){
+
+        console.log(ev.which);
+
+        if (targetLanguage === "Bosancica"){
+            language2.textContent = toBosancica(language1.value + String.fromCharCode(ev.which));
+        }
+        else {
+            language2.textContent = toLatin(language1.value + String.fromCharCode(ev.which));
+        }
+    }
+
+    function switchLanguages(){
+        var temp = title1.textContent;
+        title1.textContent = title2.textContent;
+        title2.textContent = temp;
+        targetLanguage = title2.textContent;
+
+        var t = language1.value;
+        language1.textContent = language2.value;
+        language2.textContent = t;
+
+        document.title = title1.textContent + "<->" + title2.textContent;
+    }
+
+    function clearAll() {
+        language1.value = "";
+        language2.textContent = "";
+    }
+
+    function copyToClipboard(){
+        navigator.clipboard.writeText(language2.textContent);
+    }
+
+    function fontUp(){
+        let style = window.getComputedStyle(language2, null).getPropertyValue('font-size');
+        let currentSize = parseFloat(style);
+        language2.style.fontSize = (currentSize + 2) + 'px';
+    }
+
+    function fontDown(){
+        let style = window.getComputedStyle(language2, null).getPropertyValue('font-size');
+        let currentSize = parseFloat(style);
+        language2.style.fontSize = (currentSize - 2) + 'px';
+    }
+
+    function toBosancica(s){
+        var arabicString="";
+        if (s.charCodeAt(s.length-1)===8){
+            console.log("BACKSPACE");
+            s = s.substr(0,s.length-2);
+        }
+
+        for(let i=0; i<s.length; i++){
+            switch (s.charAt(i).toUpperCase()){
+                case 'A':{
+                    arabicString += 'ɖ';
+                    break;
+                }
+                case 'B':{
+                    arabicString += 'б';
+                    break;
+                }
+                case 'C':{
+                    arabicString += 'ч';
+                    break;
+                }
+                case 'Č':{
+                    arabicString += 'v';
+                    break;
+                }
+                case 'Ć':{
+                    arabicString += 'ƛ';
+                    break;
+                }
+                case 'D':{
+                    arabicString += 'Δ';
+                    break;
+                }
+                case 'Đ':{
+                    arabicString += 'ꙉ';
+                    break;
+                }
+                case 'E':{
+                    arabicString += 'є';
+                    break;
+                }
+                case 'F':{
+                    arabicString += 'ф';
+                    break;
+                }
+                case 'G':{
+                    arabicString += 'г';
+                    break;
+                }
+                case 'H':{
+                    arabicString += 'χ';
+                    break;
+                }
+                case 'I':{
+                    arabicString += 'н';
+                    break;
+                }
+                case 'J':{
+                    if (s.charAt(i-1).toUpperCase()==='L'){
+                        console.log("SUCCESS");
+                        arabicString += 'ь';
+                        break;
+                    }
+                    else if (s.charAt(i-1).toUpperCase()==='N'){
+                        console.log("SUCCESS");
+                        arabicString += 'ь';
+                        break;
+                    }
+                    else arabicString += 'ѣ';
+                    break;
+
+                }
+                case 'K':{
+                    arabicString += 'к';
+                    break;
+                }
+                case 'L':{
+                    arabicString += 'ʌ';
+                    break;
+                }
+                case 'M':{
+                    arabicString += 'ʍ';
+                    break;
+                }
+                case 'N':{
+                    arabicString += 'ɴ';
+                    break;
+                }
+                case 'O':{
+                    arabicString += 'о';
+                    break;
+                }
+                case 'P':{
+                    arabicString += 'п';
+                    break;
+                }
+                case 'R':{
+                    arabicString += 'ϸ';
+                    break;
+                }
+                case 'S':{
+                    arabicString += 'с';
+                    break;
+                }
+                case 'Š':{
+                    arabicString += 'ш';
+                    break;
+                }
+                case 'T':{
+                    arabicString += 'm';
+                    break;
+                }
+                case 'U':{
+                    arabicString += 'ɣ';
+                    break;
+                }
+                case 'V':{
+                    arabicString += '□';
+                    break;
+                }
+                case 'Z':{
+                    arabicString += 'ӡ';
+                    break;
+                }
+                case 'Ž':{
+                    if (s.charAt(i-1).toUpperCase()==='D'){
+                        console.log("SUCCESS");
+                        arabicString = arabicString.substr(0,arabicString.length-1);
+                        arabicString += 'ᴤ';
+                        break;
+                    }
+                    arabicString += 'ж';
+                    break;
+                }
+
+            }
+            if (!isNaN(s.charAt(i)) || s.charAt(i)==='.' || s.charAt(i)===',' || s.charAt(i)==='!'|| s.charAt(i)==='?'
+                || s.charAt(i)==='-'|| s.charAt(i)==='"'|| s.charAt(i)==='('|| s.charAt(i)===')'|| s.charAt(i)==='=')
+                arabicString+=s.charAt(i);
+        }
+        console.log(arabicString);
+        return arabicString;
+    }
+
+    function toLatin(s){
+        var newString="";
+
+        if (s.charCodeAt(s.length-1)===8){
+            s = s.substr(0,s.length-2);
+            console.log("NEW STRING: " + s);
+        }
+
+        for(let i=0; i<s.length; i++){
+            switch (s.charAt(i)){
+                case 'ɖ':{
+                    newString += 'А';
+                    break;
+                }
+                case 'б':{
+                    newString += 'B';
+                    break;
+                }
+                case 'ч':{
+                    newString += 'C';
+                    break;
+                }
+                case 'v':{
+                    newString += 'Č';
+                    break;
+                }
+                case 'ƛ':{
+                    newString += 'Ć';
+                    break;
+                }
+                case 'Δ':{
+                    newString += 'D';
+                    break;
+                }
+                case 'ꙉ':{
+                    newString += 'Đ';
+                    break;
+                }
+                case 'ᴤ':{
+                    newString += 'Dž';
+                    break;
+                }
+                case 'є':{
+                    newString += 'E';
+                    break;
+                }
+                case 'ф':{
+                    newString += 'F';
+                    break;
+                }
+                case 'г':{
+                    newString += 'G';
+                    break;
+                }
+                case 'χ':{
+                    newString += 'H';
+                    break;
+                }
+                case 'н':{
+                    newString += 'I';
+                    break;
+                }
+                case 'ѣ':{
+                    newString += 'J';
+                    break;
+                }
+                case 'к':{
+                    newString += 'K';
+                    break;
+                }
+                case 'ʌ':{
+                    newString += 'L';
+                    break;
+                }
+                case 'ʌь':{
+                    newString += 'Lj';
+                    break;
+                }
+                case 'ʍ':{
+                    newString += 'M';
+                    break;
+                }
+                case 'ɴ':{
+                    newString += 'N';
+                    break;
+                }
+                case 'ɴٛь':{
+                    newString += 'Nj';
+                    break;
+                }
+                case 'о':{
+                    newString += 'O';
+                    break;
+                }
+                case 'п':{
+                    newString += 'P';
+                    break;
+                }
+                case 'ϸ':{
+                    newString += 'R';
+                    break;
+                }
+                case 'с':{
+                    newString += 'S';
+                    break;
+                }
+                case 'ш':{
+                    newString += 'Š';
+                    break;
+                }
+                case 'm':{
+                    newString += 'T';
+                    break;
+                }
+                case 'ɣ':{
+                    newString += 'U';
+                    break;
+                }
+                case '□':{
+                    newString += 'V';
+                    break;
+                }
+                case 'ӡ':{
+                    newString += 'Z';
+                    break;
+                }
+                case 'ж':{
+                    newString += 'ژ';
+                    break;
+                }
+            }
+            if (!isNaN(s.charAt(i)) || s.charAt(i)==='.' || s.charAt(i)===',' || s.charAt(i)==='!'|| s.charAt(i)==='?'
+                || s.charAt(i)==='-'|| s.charAt(i)==='"'|| s.charAt(i)==='('|| s.charAt(i)===')'|| s.charAt(i)==='=')
+                newString+=s.charAt(i);
+        }
+        console.log(newString);
+        return newString;
+    }
+</script>
+
+
+</html>

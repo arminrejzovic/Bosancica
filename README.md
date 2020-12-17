@@ -1,1 +1,1 @@
-# Bosancica
+permalink: /index.html

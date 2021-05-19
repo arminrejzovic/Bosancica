@@ -1,1 +1,1 @@
-permalink: /Index.html
+permalink: /Bosancica/Index.html
